@@ -26,13 +26,14 @@ class RandomBmiController extends Controller
     public function store(Request $request)
     {   
        
-     random__bmi::create([
+    $bmi =  random__bmi::create([
        'height' => $request->height,
        'weight' => $request->weight,
        'bmi'    => $request->BMI,
        'ip'     => $request->ip(),
        ]); 
- 
+       
+       session()->put('bmi',$bmi->id);
        return redirect('/BMI');
     }
 

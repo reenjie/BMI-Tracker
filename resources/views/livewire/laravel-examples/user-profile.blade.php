@@ -94,12 +94,28 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="user.age" class="form-control-label">{{ __('Age') }}</label>
-                                <div class="@error('user.age')border border-danger rounded-3 @enderror">
-                                    <input wire:model="user.age" class="form-control" type="tel"
-                                        placeholder="40770888444" id="phone">
+                                <label for="user.age" class="form-control-label">{{ __('Birthday') }}</label>
+                                <div class="@error('user.birthday')border border-danger rounded-3 @enderror">
+                                    <input wire:model="user.birthday" class="form-control" type="date"
+                                         id="bday" value="">
                                 </div>
-                                @error('user.age') <div class="text-danger">{{ $message }}</div> @enderror
+                                @error('user.birthday') <div class="text-danger">{{ $message }}</div> @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="user.gender" class="form-control-label">{{ __('Age') }}</label>
+                                <div >
+                                  
+                                      <input class="form-control" wire:model="age"  type="text" disabled value="" 
+                                   id="age" >
+                                  
+                                   
+                                 
+
+                                </div>
+                                @error('user.gender') <div class="text-danger">{{ $message }}</div> @enderror
                             </div>
                         </div>
 

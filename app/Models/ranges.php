@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ranges extends Model
 {
     use HasFactory;
+
+     protected $fillable = [
+        'start',
+        'end',
+        'conclusion',
+     ];
 }

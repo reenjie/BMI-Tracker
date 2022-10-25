@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('recommendations', function (Blueprint $table) {
             $table->id();
+            $table->integer('rangeID');
+            $table->text('contents');
             $table->timestamps();
         });
     }

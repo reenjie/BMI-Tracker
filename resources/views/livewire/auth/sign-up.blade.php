@@ -28,22 +28,24 @@
                                 <Label>Name:</Label>
                                   <div class="@error('name') border border-danger rounded-3  @enderror">
                                       <input wire:model="name" type="text" class="form-control" placeholder="Name"
-                                          aria-label="Name" aria-describedby="email-addon">
+                                          aria-label="Name" aria-describedby="email-addon" required>
                                   </div>
                                   @error('name') <div class="text-danger">{{ $message }}</div> @enderror
                               </div>
                               <div class="mb-3">
-                                <Label>Age:</Label>
-                                <div class="@error('age') border border-danger rounded-3  @enderror">
-                                    <input wire:model="age" type="text" class="form-control" placeholder="Age"
-                                        aria-label="Age" aria-describedby="age-addon">
+                                <Label>Birthday:</Label>
+                                <div class="@error('birthday') border border-danger rounded-3  @enderror">
+                                    <input wire:model="birthday" type="date" class="form-control" placeholder="" min="1960-01-01" max="{{date("Y-m-d")}}"
+                                        aria-label="Birthday" aria-describedby="age-addon" required>
                                 </div>
-                                @error('age') <div class="text-danger">{{ $message }}</div> @enderror
+                                @error('birthday') <div class="text-danger">{{ $message }}</div> @enderror
                             </div>
 
                             <div class="mb-3">
                                 <Label>Gender:</Label>
-                                    <select wire:model="gender"   aria-label="gender" aria-describedby="gender-addon" class="form-select @error('gender') border border-danger rounded-3  @enderror" id="" >
+                                    <select wire:model="gender"   aria-label="gender" 
+                                    required
+                                    aria-describedby="gender-addon" class="form-select @error('gender') border border-danger rounded-3  @enderror" id="" >
                                         <option >- Please Select -</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -56,7 +58,7 @@
                                 <Label>Email:</Label>
                                   <div class="@error('email') border border-danger rounded-3 @enderror">
                                       <input wire:model="email" type="email" class="form-control" placeholder="Email"
-                                          aria-label="Email" aria-describedby="email-addon">
+                                          aria-label="Email" aria-describedby="email-addon" required>
                                   </div>
                                   @error('email') <div class="text-danger">{{ $message }}</div> @enderror
                               </div>
@@ -65,7 +67,7 @@
                                   <div class="@error('password') border border-danger rounded-3 @enderror">
                                       <input wire:model="password" type="password" class="form-control"
                                           placeholder="Password" aria-label="Password"
-                                          aria-describedby="password-addon">
+                                          aria-describedby="password-addon" required>
                                   </div>
                                   @error('password') <div class="text-danger">{{ $message }}</div> @enderror
                               </div>

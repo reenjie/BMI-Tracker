@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('ranges', function (Blueprint $table) {
             $table->id();
+            $table->integer('start');
+            $table->integer('end');
+            $table->string('conclusion');
             $table->timestamps();
         });
     }

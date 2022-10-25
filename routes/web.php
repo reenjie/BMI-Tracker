@@ -48,6 +48,7 @@ Route::get('/login/forgot-password', ForgotPassword::class)->name('forgot-passwo
 Route::get('/reset-password/{id}',ResetPassword::class)->name('reset-password')->middleware('signed');
 Route::get('endTempSession',function(){
     session()->forget('Temp_userBMI');
+    session()->forget('bmi');
     return redirect('/BMI');
 })->name('endTempSession');
 

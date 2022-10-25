@@ -10,13 +10,13 @@ class SignUp extends Component
 {
     public $name = '';
     public $email = '';
-    public $age = '';
+    public $birthday = '';
     public $gender = '';
     public $password = '';
 
     protected $rules = [
         'name' => 'required|min:3',
-        'age'=>'required',
+        'birthday'=>'required',
         'gender'=>'required',
         'email' => 'required|email:rfc,dns|unique:users',
         'password' => 'required|min:6'
@@ -30,21 +30,25 @@ class SignUp extends Component
 
     public function register() {
 
-        
+    $bmi = session()->has('bmi') ? session()->get('bmi') : 0;
+     
      $this->validate();
         $user = User::create([
             'name' => $this->name,
             'email' => $this->email,
-            'age'=>$this->age,
+            'birthday'=>$this->birthday,
             'gender'=>$this->gender,
             'role'=>0,
             'isverified'=>0,
+            'bmi'=> $bmi,
             'password' => Hash::make($this->password)
         ]);
 
-        auth()->login($user);
 
-        return redirect('/dashboard'); 
+
+        auth()->login($user);
+        session()->forget('bmi');
+        return redirect('/dashboard');  
     }
 
     public function render()

@@ -9,14 +9,15 @@ class UserProfile extends Component
 {
     public User $user;
     public $showSuccesNotification  = false;
-
+    public $age ;
     public $showDemoNotification = false;
     
     protected $rules = [
         'user.name' => 'max:40|min:3',
         'user.email' => 'email:rfc,dns',
         'user.phone' => 'max:10',
-        'user.age' => 'max:10',
+        'user.birthday' => 'max:10',
+        'user.age' => 'awwww',
         'user.gender' => 'max:10',
         'user.about' => 'max:200',
         'user.location' => 'min:3'
@@ -24,6 +25,7 @@ class UserProfile extends Component
 
     public function mount() { 
         $this->user = auth()->user();
+        $this->age = date('Y') - date('Y',strtotime(auth()->user()->birthday));
     }
 
     public function save() {
@@ -37,6 +39,8 @@ class UserProfile extends Component
     }
     public function render()
     {
-        return view('livewire.laravel-examples.user-profile');
+        
+        
+        return view('livewire.laravel-examples.user-profile'); 
     }
 }
