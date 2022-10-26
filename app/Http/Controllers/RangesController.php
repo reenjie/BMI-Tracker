@@ -15,6 +15,7 @@ class RangesController extends Controller
     public function index()
     {
         //
+       return view('livewire.ranges');
     }
 
     /**

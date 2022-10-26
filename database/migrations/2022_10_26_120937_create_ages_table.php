@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('recommendations', function (Blueprint $table) {
+        Schema::create('ages', function (Blueprint $table) {
             $table->id();
-            $table->integer('rangeID');
-            $table->integer('ageID');
-            $table->text('contents');
+            $table->integer('start');
+            $table->integer('end');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recommendations');
+        Schema::dropIfExists('ages');
     }
 };

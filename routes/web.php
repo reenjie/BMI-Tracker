@@ -8,18 +8,22 @@ use App\Http\Livewire\Auth\SignUp;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Bmi;
+use App\Http\Livewire\Age;
 use App\Http\Livewire\Billing;
 use App\Http\Livewire\Profile;
-use App\Http\Livewire\Tables;
+use App\Http\Livewire\Ranges_model;
+use App\Http\Livewire\Recommendation_model;
 use App\Http\Livewire\StaticSignIn;
 use App\Http\Livewire\StaticSignUp;
 use App\Http\Livewire\Rtl;
 use App\Http\Controllers\CalculationCOntroller;
 use App\Http\Controllers\RandomBmiController;
+use App\Http\Controllers\RangesController;
 
 
 use App\Http\Livewire\LaravelExamples\UserProfile;
 use App\Http\Livewire\LaravelExamples\UserManagement;
+
 
 use Illuminate\Http\Request;
 
@@ -55,14 +59,21 @@ Route::get('endTempSession',function(){
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
-    Route::get('/billing', Billing::class)->name('billing');
+  
     Route::get('/profile', Profile::class)->name('profile');
-    Route::get('/tables', Tables::class)->name('tables');
-    Route::get('/static-sign-in', StaticSignIn::class)->name('sign-in');
+ 
+    Route::get('BMI-ranges',Ranges_model::class)->name('BMI-ranges');
+
+    Route::get('Recommendation',Recommendation_model::class)->name('Recommendation');
+
     Route::get('/static-sign-up', StaticSignUp::class)->name('static-sign-up');
-    Route::get('/rtl', Rtl::class)->name('rtl');
+
     Route::get('/MyProfile', UserProfile::class)->name('myProfile');
-    Route::get('/laravel-user-management', UserManagement::class)->name('user-management');
+    Route::get('/user-management', UserManagement::class)->name('user-management');
+
+    Route::get('/Age-ranges', Age::class)->name('Age-ranges');
+
+   
 });
 
 
@@ -76,6 +87,7 @@ Route::controller(CalculationCOntroller::class)->group(function(){
 
 });
 
+
 Route::controller(RandomBmiController::class)->group(function(){
     Route::prefix('Random')->name('rand.')->group(function(){
         Route::get('store','store')->name('store');
@@ -87,6 +99,19 @@ Route::controller(RandomBmiController::class)->group(function(){
     });
 
 });
+
+Route::controller(RangesController::class)->group(function(){
+    Route::prefix('BMI')->name('bmirange.')->group(function(){
+        Route::get('store','store')->name('store');
+      
+        Route::get('index','index')->name('index');
+        Route::post('update','update')->name('update');
+        Route::get('destroy','destroy')->name('destroy');
+
+    });
+
+});
+
 
 
 

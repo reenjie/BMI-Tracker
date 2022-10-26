@@ -17,7 +17,6 @@ class UserProfile extends Component
         'user.email' => 'email:rfc,dns',
         'user.phone' => 'max:10',
         'user.birthday' => 'max:10',
-        'user.age' => 'awwww',
         'user.gender' => 'max:10',
         'user.about' => 'max:200',
         'user.location' => 'min:3'

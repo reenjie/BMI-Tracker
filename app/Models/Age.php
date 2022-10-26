@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class recommendation extends Model
+class Age extends Model
 {
     use HasFactory;
 
     protected $fillable =[
-        'rangeID',
-        'ageID',
-        'contents',
-   
+        'start',
+        'end',
+
     ];
 }
