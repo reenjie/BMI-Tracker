@@ -18,8 +18,12 @@ class Login extends Component
 
     public function mount() {
         if(auth()->user()){
-          redirect('/dashboard');
-          //This is where you manipulate roles
+    
+        auth()->user()->role == 0 ?
+        redirect()->intended('/Information')
+        :
+        redirect()->intended('/dashboard');
+        
         }
         //$this->fill(['email' => auth()->user()->email, 'password' => auth()->user()->password ]);
     }
@@ -34,9 +38,13 @@ class Login extends Component
                 User::where(["email" => $this->email])->update([
                     'bmi'=>session()->get('bmi'),
                 ]) : "";
-                
 
-            return redirect()->intended('/dashboard');        
+             
+            
+            return auth()->user()->role == 0 ?
+            redirect()->intended('/Information')
+            :
+            redirect()->intended('/dashboard'); 
         }
         else{
             return $this->addError('email', trans('auth.failed')); 

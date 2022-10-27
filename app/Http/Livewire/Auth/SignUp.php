@@ -24,7 +24,10 @@ class SignUp extends Component
 
     public function mount() {
         if(auth()->user()){
-            redirect('/dashboard');
+        return auth()->user()->role == 0 ?
+        redirect()->intended('/Information')
+        :
+        redirect()->intended('/dashboard'); 
         }
     }
 
@@ -48,7 +51,12 @@ class SignUp extends Component
 
         auth()->login($user);
         session()->forget('bmi');
-        return redirect('/dashboard');  
+
+
+        return auth()->user()->role == 0 ?
+        redirect()->intended('/Information')
+        :
+        redirect()->intended('/dashboard'); 
     }
 
     public function render()

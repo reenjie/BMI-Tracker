@@ -26,7 +26,7 @@
             <tbody>
 
             @foreach ($ranges as $item)
-        <tr>
+        <tr style="font-size: 13px">
            
               <td>
                  {{$item->conclusion}}

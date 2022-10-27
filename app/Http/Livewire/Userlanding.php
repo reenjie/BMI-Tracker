@@ -4,10 +4,10 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class Age extends Component
+class Userlanding extends Component
 {
     public function render()
     {
-        return view('livewire.age');
+        return view('livewire.userlanding');
     }
 }

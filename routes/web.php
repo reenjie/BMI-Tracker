@@ -8,9 +8,10 @@ use App\Http\Livewire\Auth\SignUp;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Bmi;
-use App\Http\Livewire\Age;
+use App\Http\Livewire\Age_controller;
 use App\Http\Livewire\Billing;
 use App\Http\Livewire\Profile;
+
 use App\Http\Livewire\Ranges_model;
 use App\Http\Livewire\Recommendation_model;
 use App\Http\Livewire\StaticSignIn;
@@ -20,6 +21,8 @@ use App\Http\Controllers\CalculationCOntroller;
 use App\Http\Controllers\RandomBmiController;
 use App\Http\Controllers\RangesController;
 
+/* Users */
+use App\Http\Livewire\Userlanding;
 
 use App\Http\Livewire\LaravelExamples\UserProfile;
 use App\Http\Livewire\LaravelExamples\UserManagement;
@@ -71,7 +74,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/MyProfile', UserProfile::class)->name('myProfile');
     Route::get('/user-management', UserManagement::class)->name('user-management');
 
-    Route::get('/Age-ranges', Age::class)->name('Age-ranges');
+    Route::get('/Age-ranges', Age_controller::class)->name('Age-ranges');
+    Route::get('/Information',Userlanding::class)->name('Information');
 
    
 });

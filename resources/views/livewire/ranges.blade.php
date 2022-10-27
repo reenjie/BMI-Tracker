@@ -34,7 +34,7 @@
             <tbody>
 
             @foreach ($data as $item)
-            <tr>
+            <tr style="font-size: 13px">
            
               <td>
                  {{$item->conclusion}}
