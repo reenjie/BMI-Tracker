@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->text('DBW');
             $table->text('TER');
-            $table->text('PA ');
+            $table->text('PA');
             $table->timestamps();
         });
     }

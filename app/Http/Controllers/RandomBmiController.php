@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\random__bmi;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\statistics;
 
 class RandomBmiController extends Controller
 {
@@ -33,8 +35,22 @@ class RandomBmiController extends Controller
        'ip'     => $request->ip(),
        ]); 
        
-       session()->put('bmi',$bmi->id);
-       return redirect('/BMI');
+       if(auth()->user()){
+                
+
+
+
+            User::where('id',auth()->user()->id)->update([
+                'bmi'=> $bmi->id,
+            ]);
+
+            return redirect()->route('Information');
+
+       }else {
+        session()->put('bmi',$bmi->id);
+        return redirect('/BMI');
+       }
+     
     }
 
     /**

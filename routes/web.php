@@ -12,14 +12,19 @@ use App\Http\Livewire\Age_controller;
 use App\Http\Livewire\Billing;
 use App\Http\Livewire\Profile;
 
+
 use App\Http\Livewire\Ranges_model;
 use App\Http\Livewire\Recommendation_model;
 use App\Http\Livewire\StaticSignIn;
 use App\Http\Livewire\StaticSignUp;
 use App\Http\Livewire\Rtl;
+
 use App\Http\Controllers\CalculationCOntroller;
 use App\Http\Controllers\RandomBmiController;
 use App\Http\Controllers\RangesController;
+use App\Http\Controllers\RecommendationController;
+use App\Http\Controllers\AgeController;
+
 
 /* Users */
 use App\Http\Livewire\Userlanding;
@@ -77,6 +82,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/Age-ranges', Age_controller::class)->name('Age-ranges');
     Route::get('/Information',Userlanding::class)->name('Information');
 
+    
+
    
 });
 
@@ -85,6 +92,9 @@ Route::controller(CalculationCOntroller::class)->group(function(){
     Route::prefix('calculate')->name('calc.')->group(function(){ 
         
         Route::post('bmi','bmi')->name('bmi');
+        Route::post('calculateTER','ter')->name('dbwter');
+
+        Route::get('recalculate','Recalculate')->name('Recalculate');
     
     });
 
@@ -115,6 +125,31 @@ Route::controller(RangesController::class)->group(function(){
     });
 
 });
+
+Route::controller(RecommendationController::class)->group(function(){
+    Route::prefix('Recommend')->name('rec.')->group(function(){
+        Route::post('store','store')->name('store');
+      
+        Route::get('index','index')->name('index');
+        Route::post('update','update')->name('update');
+        Route::get('destroy','destroy')->name('destroy');
+
+    });
+
+});
+
+Route::controller(AgeController::class)->group(function(){
+    Route::prefix('age')->name('age.')->group(function(){
+        Route::post('store','store')->name('store');
+      
+        Route::get('index','index')->name('index');
+        Route::post('update','update')->name('update');
+        Route::get('destroy','destroy')->name('destroy');
+
+    });
+
+});
+
 
 
 

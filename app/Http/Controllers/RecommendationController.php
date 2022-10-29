@@ -35,7 +35,19 @@ class RecommendationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $rangeID = $request->input('rangeID');
+        $ageID   = $request->input('ageID');
+        $content = $request->input('content');
+
+        recommendation::create([
+            'rangeID'=>$rangeID,
+            'ageID'  => $ageID,
+            'contents' => $content,
+       
+        ]);
+
+        return redirect()->route('Recommendation')->with('success','Recommendation added successfully!');
     }
 
     /**
@@ -67,9 +79,16 @@ class RecommendationController extends Controller
      * @param  \App\Models\recommendation  $recommendation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, recommendation $recommendation)
+    public function update(Request $request)
     {
-        //
+       $content = $request->input('content');
+       $id = $request->input('id');
+       recommendation::where('id',$id)->update([
+        'contents'=>$content,
+
+       ]);
+       return redirect()->route('Recommendation')->with('success','Recommendation Updated successfully!');
+
     }
 
     /**
@@ -78,8 +97,10 @@ class RecommendationController extends Controller
      * @param  \App\Models\recommendation  $recommendation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(recommendation $recommendation)
+    public function destroy(Request $request)
     {
-        //
+       $id = $request->id;
+       recommendation::where('id',$id)->delete();
+       return redirect()->route('Recommendation')->with('success','Recommendation deleted successfully!');
     }
 }

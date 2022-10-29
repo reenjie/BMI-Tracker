@@ -16,6 +16,7 @@ class Recommendation_model extends Component
             'data'=> recommendation::all(),
             'ranges'=>DB::select('select * from ranges where id in (select rangeID from recommendations)'),
             'age'=>Age::all(),
+            'allranges'=>ranges::all(),
         ]);
     }
 }
