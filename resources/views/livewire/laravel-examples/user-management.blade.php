@@ -1,35 +1,27 @@
 <div class="main-content">
-    <div class="alert alert-secondary mx-4" role="alert">
-        <span class="text-white"><strong>Add, Edit, Delete features are not functional!</strong> This is a
-            <strong>PRO</strong> feature!
-            Click <strong><a href="https://www.creative-tim.com/live/soft-ui-dashboard-pro-laravel" target="_blank"
-                    class="text-white">here</a></strong>
-            to see the PRO
-            product!</span>
-    </div>
+
 
     <div class="row">
         <div class="col-12">
             <div class="card mb-4 mx-4">
                 <div class="card-header pb-0">
-                    <div class="d-flex flex-row justify-content-between">
-                        <div>
-                            <h5 class="mb-0">All Users</h5>
-                        </div>
-                        <a href="#" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; New User</a>
-                    </div>
+                    
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
+                    @if(session()->has('success'))
+                    <div class="container">
+                        
+                    <div class="alert  mb-2 mt-2 alert-dismissible fade show" style="background-color:rgb(209, 248, 205);font-size:13px" role="alert">
+                        {{session()->get('success')}}
+                        <button type="button" style="color:black" class="btn-close " data-bs-dismiss="alert" aria-label="Close"><i class="fas fa-times"></i></button>
+                      </div>
+                    </div>
+                  @endif
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        ID
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Photo
-                                    </th>
+                                 
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Name
                                     </th>
@@ -37,7 +29,7 @@
                                         Email
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        role
+                                        BMI
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Creation Date
@@ -48,161 +40,140 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($users as $item)
                                 <tr>
-                                    <td class="ps-4">
-                                        <p class="text-xs font-weight-bold mb-0">1</p>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3">
-                                        </div>
+                                 
+                                 <td class="text-center">
+                                        <p data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer" class="text-xs font-weight-bold mb-0">{{$item->name}}</p>
+
+  
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+       
+        <div class="modal-body" style="">
+            <h5 >{{$item->name}}</h5>
+            <span style="font-size: 14px">{{$item->email}}</span>
+            <div class="container">
+                <h6 style="text-align:left;font-size:14px" class="mt-3">
+                    <div style="">
+                        <span style="font-weight: normal">
+                            Age :
+                        </span>
+                        <span style="margin-left: 5px">
+                           {{date('Y') - date('Y',strtotime($item->birthday)) }} yrs old
+                        </span>
+                    </div>
+                    <div style="">
+                        <span style="font-weight: normal">
+                          Gender :
+                        </span>
+                        <span style="margin-left: 5px">
+                          {{$item->gender}}
+                        </span>
+                    </div>
+                    <div style="">
+                        <span style="font-weight: normal">
+                           Birthday:
+                        </span>
+                        <span style="margin-left: 5px">
+                           {{date('F j, Y',strtotime($item->birthday))}}
+                        </span>
+                    </div>
+                </h6>
+                <h6 style="text-align:left;font-size:14px;font-weight:normal">
+                
+                   
+                    @foreach ($random_bmi as $userbmi)
+                    @if($userbmi->id == $item->bmi)
+                    <span style="font-size:12px;font-weight:bold">BMI</span>
+                    <br>
+                    Height : {{$userbmi->height}}
+                    <br>
+                    Weight : {{$userbmi->weight}}
+                    <br>
+                    Body Mass Index : {{$userbmi->bmi}}
+    
+                    @php
+                    $bmi =$userbmi->bmi;
+                    $ranges = DB::select('SELECT * FROM `ranges` WHERE '.$bmi.' BETWEEN start and end');
+    
+    
+                @endphp
+                        <br>
+                    @foreach ($ranges as $bdw)
+                    <span class="badge bg-success">
+                        {{$bdw->conclusion}}
+                    </span>
+                    @endforeach
+                    @endif
+                
+                @endforeach
+                    <br><br>
+                 
+                    @foreach ($statistics as $st)
+                        @if($st->user_id == $item->id)
+                        <span style="font-size:12px;font-weight:bold">DBW,PA,TER</span>
+                        <br>
+                      
+                        Desired Body Weight
+                        <br>
+                        {{$st->DBW}} kg
+                        <br>
+                        Physical Activity
+                        <br>
+                        {{$st->PA}} kCal
+                        <br>
+                        Total Energy Requirement
+                        <br>
+                        {{$st->TER}}
+                        <br>
+                        Date Generated : {{date('@h:m a F j,Y',strtotime($st->created_at))}}
+                        @endif
+                    @endforeach
+                  
+            
+                </h6>
+            </div>
+     
+
+            <br><br>
+            <div style="text-align: center">
+                <button type="button" class="btn btn-info  btn-sm" style="font-size: 13px" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Admin</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{$item->email}}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">admin@softui.com</p>
+                                        <p class="text-xs font-weight-bold mb-0">
+                                            @foreach ($random_bmi as $userbmi)
+                                                @if($userbmi->id == $item->bmi)
+                                                {{$userbmi->bmi}}
+                                                @endif
+                                            
+                                            @endforeach
+                                        </p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Admin</p>
+                                        <span class="text-secondary text-xs font-weight-bold">{{date('@h:m a F j,Y ',strtotime($item->created_at))}}</span>
                                     </td>
                                     <td class="text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">16/06/18</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip"
-                                            data-bs-original-title="Edit user">
-                                            <i class="fas fa-user-edit text-secondary"></i>
-                                        </a>
-                                        <span>
+                                      
+                                        <span onclick="Delete_rec({{$item->id}})">
                                             <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                         </span>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-4">
-                                        <p class="text-xs font-weight-bold mb-0">2</p>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="/assets/img/team-1.jpg" class="avatar avatar-sm me-3">
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Creator</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">creator@softui.com</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Creator</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">05/05/20</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip"
-                                            data-bs-original-title="Edit user">
-                                            <i class="fas fa-user-edit text-secondary"></i>
-                                        </a>
-                                        <span>
-                                            <i class="cursor-pointer fas fa-trash text-secondary"></i>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-4">
-                                        <p class="text-xs font-weight-bold mb-0">3</p>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="/assets/img/team-3.jpg" class="avatar avatar-sm me-3">
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Member</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">member@softui.com</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Member</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">23/06/20</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip"
-                                            data-bs-original-title="Edit user">
-                                            <i class="fas fa-user-edit text-secondary"></i>
-                                        </a>
-                                        <span>
-                                            <i class="cursor-pointer fas fa-trash text-secondary"></i>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-4">
-                                        <p class="text-xs font-weight-bold mb-0">4</p>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="/assets/img/team-4.jpg" class="avatar avatar-sm me-3">
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Peterson</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">peterson@softui.com</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Member</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">26/10/17</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip"
-                                            data-bs-original-title="Edit user">
-                                            <i class="fas fa-user-edit text-secondary"></i>
-                                        </a>
-                                        <span>
-                                            <i class="cursor-pointer fas fa-trash text-secondary"></i>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-4">
-                                        <p class="text-xs font-weight-bold mb-0">5</p>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="/assets/img/marie.jpg" class="avatar avatar-sm me-3">
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Marie</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">marie@softui.com</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Creator</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">23/01/21</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="#" class="mx-3" data-bs-toggle="tooltip"
-                                            data-bs-original-title="Edit user">
-                                            <i class="fas fa-user-edit text-secondary"></i>
-                                        </a>
-                                        <span>
-                                            <i class="cursor-pointer fas fa-trash text-secondary"></i>
-                                        </span>
-                                    </td>
-                                </tr>
+                                </tr> 
+                                @endforeach
+                           
+                             
                             </tbody>
                         </table>
                     </div>
@@ -212,3 +183,22 @@
     </div>
 
 </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+
+function Delete_rec(id){
+    swal({
+  title: "Are you sure?",
+  text: "All Records of this User Will be Deleted. Press Ok to Proceed",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    window.location.href="{{route('user.destroy')}}?id="+id;
+  }
+});
+}
+
+</script>

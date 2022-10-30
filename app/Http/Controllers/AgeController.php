@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Age;
+use App\Models\recommendation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class AgeController extends Controller
@@ -44,6 +45,9 @@ class AgeController extends Controller
 
     public function destroy(Request $request){
         Age::where('id',$request->id)->delete();
+        recommendation::where('ageID',$request->id)->delete();
+
+
         return redirect()->route('Age-ranges')->with('success','Range Deleted Successfully!');
     }
 }

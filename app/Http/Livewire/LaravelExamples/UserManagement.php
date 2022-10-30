@@ -1,13 +1,19 @@
 <?php
 
 namespace App\Http\Livewire\LaravelExamples;
-
+use App\Models\User;
+use App\Models\random__bmi;
 use Livewire\Component;
+use App\Models\statistics;
 
 class UserManagement extends Component
 {
     public function render()
     {
-        return view('livewire.laravel-examples.user-management');
+        return view('livewire.laravel-examples.user-management',[
+            'users'=> User::where('role',0)->get(),
+            'random_bmi'=> random__bmi::all(),
+            'statistics'=>statistics::all(),
+        ]);
     }
 }

@@ -24,6 +24,8 @@ use App\Http\Controllers\RandomBmiController;
 use App\Http\Controllers\RangesController;
 use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\AgeController;
+use App\Http\Controllers\UserController;
+
 
 
 /* Users */
@@ -149,6 +151,16 @@ Route::controller(AgeController::class)->group(function(){
     });
 
 });
+
+Route::controller(UserController::class)->group(function(){
+    Route::prefix('user')->name('user.')->group(function(){
+      
+        Route::get('destroy','destroy')->name('destroy');
+
+    });
+
+});
+
 
 
 

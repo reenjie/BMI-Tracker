@@ -10,7 +10,18 @@
                             @if(session()->has('Temp_userBMI'))
                             <h5>Your BMI is <br/></h5>
                             <h3 class="font-weight-bolder text-info text-gradient">{{ __(session()->get('Temp_userBMI')) }}</h3>
-                            <span class="badge bg-success">Normal</span>
+                            @php
+                                $bmi = session()->get('Temp_userBMI');
+                                $ranges = DB::select('SELECT * FROM `ranges` WHERE '.$bmi.' BETWEEN start and end');
+
+                            @endphp
+
+                            <span class="badge bg-success">
+                                @foreach ($ranges as $item)
+                                    {{$item->conclusion}}
+                                @endforeach
+
+                            </span>
 
 
                             @else
@@ -21,6 +32,7 @@
                         </div>
                         <div class="card-body">
                             @if(session()->has('Temp_userBMI'))
+                           
                                 @include('livewire/tempBMI')
                             @else 
                             <form action="{{route('calc.bmi')}}" method="post">

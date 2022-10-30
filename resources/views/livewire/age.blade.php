@@ -113,7 +113,7 @@
 function Delete_rec(id){
     swal({
   title: "Are you sure?",
-  text: "Action cannot be un done.",
+  text: "Recommendations with this data will be deleted as well. Press ok to proceed.",
   icon: "warning",
   buttons: true,
   dangerMode: true,
