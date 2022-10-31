@@ -38,10 +38,10 @@
                             <form action="{{route('calc.bmi')}}" method="post">
                                 @csrf
                             <label style="font-size: 15px" for="">Height
-                            <input name="height"  class="form-control" placeholder="in Centimeters" autofocus required />
+                            <input name="height" type="number"  class="form-control" placeholder="in Centimeters" autofocus required />
                         </label>
                         <label style="font-size: 15px" for="">Weight
-                            <input name="weight" class="form-control" placeholder="in Kilograms" required />
+                            <input name="weight" type="number" class="form-control" placeholder="in Kilograms" required />
                         </label>
                         <button type="submit" class="btn btn-info mt-3">
                             Calculate

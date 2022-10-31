@@ -148,6 +148,7 @@ Route::controller(AgeController::class)->group(function(){
         Route::post('update','update')->name('update');
         Route::get('destroy','destroy')->name('destroy');
 
+
     });
 
 });
@@ -157,6 +158,10 @@ Route::controller(UserController::class)->group(function(){
       
         Route::get('destroy','destroy')->name('destroy');
 
+        Route::get('verify','verify')->name('verify');
+        Route::post('store','store')->name('store');
+        
+        Route::post('changepass','changepass')->name('changepass');
     });
 
 });

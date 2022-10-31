@@ -11,7 +11,7 @@ class UserManagement extends Component
     public function render()
     {
         return view('livewire.laravel-examples.user-management',[
-            'users'=> User::where('role',0)->get(),
+            'users'=> User::all(),
             'random_bmi'=> random__bmi::all(),
             'statistics'=>statistics::all(),
         ]);

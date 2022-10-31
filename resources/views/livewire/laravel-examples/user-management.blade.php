@@ -17,6 +17,13 @@
                       </div>
                     </div>
                   @endif
+                    <div class="container">
+                        <button data-bs-toggle="modal" data-bs-target="#add"  class="btn bg-gradient-primary btn-sm mb-0" >Add Administrator</button>
+                    </div>
+
+
+                    @include('livewire/adduser')
+         
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
@@ -32,6 +39,9 @@
                                         BMI
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        role
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Creation Date
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -41,14 +51,17 @@
                             </thead>
                             <tbody>
                                 @foreach ($users as $item)
+                                @if($item->id != auth()->user()->id)
                                 <tr>
                                  
                                  <td class="text-center">
-                                        <p data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer" class="text-xs font-weight-bold mb-0">{{$item->name}}</p>
+                                        <p 
+                                        style="color: rgb(92, 92, 212);cursor:pointer"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal{{$item->id}}" style="cursor: pointer" class="text-xs font-weight-bold mb-0">{{$item->name}}</p>
 
   
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="exampleModal{{$item->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
        
@@ -140,7 +153,7 @@
 
             <br><br>
             <div style="text-align: center">
-                <button type="button" class="btn btn-info  btn-sm" style="font-size: 13px" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-light  btn-sm" style="font-size: 13px" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
        
@@ -162,15 +175,34 @@
                                         </p>
                                     </td>
                                     <td class="text-center">
+                                        @if($item->role == 0)
+                                      <span style="font-size:13px;text-align:center">
+                                    User</span>
+                                        @else
+                                        <span style="font-size:13px;text-align:center">
+                                            Admin</span>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
                                         <span class="text-secondary text-xs font-weight-bold">{{date('@h:m a F j,Y ',strtotime($item->created_at))}}</span>
                                     </td>
                                     <td class="text-center">
-                                      
-                                        <span onclick="Delete_rec({{$item->id}})">
+                                      @if($item->isverified == 0)
+                                        <button
+                                        onclick="Verify({{$item->id}})"
+                                        style="outline:none;border:none;font-size:13px;text-transform:uppercase;color:rgb(43, 136, 100);border:1px solid rgb(106, 160, 106);border-radius:5px"
+                                        >
+                                            Verify <i class="fas fa-circle"></i>
+                                        </button>
+                                      @endif
+                                        <span 
+                                        style="margin-left: 5px"
+                                        onclick="Delete_rec({{$item->id}})">
                                             <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                         </span>
                                     </td>
-                                </tr> 
+                                </tr>
+                                @endif 
                                 @endforeach
                            
                              
@@ -197,6 +229,21 @@ function Delete_rec(id){
 .then((willDelete) => {
   if (willDelete) {
     window.location.href="{{route('user.destroy')}}?id="+id;
+  }
+});
+}
+
+function Verify(id){
+    swal({
+  title: "Are you sure?",
+  text: "This will allow the User to Calculate his/her DBW, TER , and View Full Recommendations ",
+  icon: "warning",
+  buttons: true,
+  dangerMode: false,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    window.location.href="{{route('user.verify')}}?id="+id;
   }
 });
 }

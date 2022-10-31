@@ -32,7 +32,7 @@
                 @endif
                 <li class="nav-item">
                     <a class="nav-link text-light me-2"
-                        href=" {{ auth()->user() ? route('static-sign-up') : route('sign-up') }}">
+                        href=" {{ auth()->user() ? route('static-sign-up') : route('BMI') }}">
                         <i class="fas fa-user opacity-6 text-light me-1"></i>
                        
                       BMI

@@ -43,6 +43,7 @@ class SignUp extends Component
             'gender'=>$this->gender,
             'role'=>0,
             'isverified'=>0,
+            'firstlogin'=>1,
             'bmi'=> $bmi,
             'password' => Hash::make($this->password)
         ]);

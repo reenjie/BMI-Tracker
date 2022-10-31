@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             'birthday' => now(),
             'gender' => '',
             'role' => 1,
-            'isverified' => 0,
+            'isverified' => 1,
+            'firstlogin'=>0,
             'bmi'=>0,
             'password' => Hash::make('password')
         ]);
