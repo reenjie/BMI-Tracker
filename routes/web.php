@@ -49,7 +49,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function() {
-    return redirect('/login');
+    return redirect('/BMI');
 });
 
 Route::get('/sign-up', SignUp::class)->name('sign-up');
@@ -85,6 +85,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/Information',Userlanding::class)->name('Information');
 
     
+   // Route::get('/Meal-Plan')->name('Meal-Plan');
 
    
 });
