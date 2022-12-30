@@ -168,6 +168,95 @@
                                     Calculate BMI again
                                     <i style="margin-left:2px" class="fas fa-sync"></i>
                                 </button>
+
+                                <button  style="margin-left:5px" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn  mt-3 text-info btn-light" >
+                                   Log & Statistics
+                                    <i style="margin-left:2px" class="fas fa-info-circle"></i>
+                                </button>
+
+                  
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Logs</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Statistics</button>
+  </li>
+ 
+</ul>
+<div class="tab-content" id="myTabContent">
+    
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  <table class="table table-sm table-bordered" style="font-size:13px">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Height</th>
+      <th scope="col">Weight</th>
+      <th scope="col">BMI</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach($userStatisticsl as $row)
+    <tr>
+      <td>{{date('F j,Y',strtotime($row->created_at))}}</td>
+      <td>{{$row->height}}</td>
+      <td>{{$row->weight}}</td>
+      <td>{{$row->BMI}}</td>
+    </tr>
+    @endforeach
+ 
+  
+  </tbody>
+</table>
+
+  </div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+  <div class="container p-5">
+  <h6>Weight</h6>
+    <span style="font-size:14px">
+    Current : {{$userStatistics[0]->weight}} Kg
+    
+    <br>
+
+    Heaviest :
+
+    @php
+    $highest = DB::select('SELECT max(weight) as heaviest , min(weight) as lowest FROM `statistics` WHERE user_id = '.$userStatistics[0]->user_id.' ');
+    @endphp
+    {{$highest[0]->heaviest}} Kg
+    <br>
+    Lightest : {{$highest[0]->lowest}} Kg
+    <br>
+</span>
+    <h6>Height</h6>
+    <span style="font-size:14px">
+    Current : {{$userStatistics[0]->height}} Cm
+
+    </span>
+    <hr>
+    <span style="font-size:14px">
+    BMI : {{$userStatistics[0]->BMI}}
+
+    <br>
+    
+    <span class="badge bg-success">Overweight</span>
+</span>
+  </div>
+  </div>
+ 
+</div>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
                             
                     </div>
                 </div>

@@ -11,7 +11,10 @@ class Userlanding extends Component
     public function render()
     {   
         $userBMI =DB::select('select bmi from users where id = '.auth()->user()->id.' ');
-      $userStatistics = DB::select('select * from statistics where user_id = '.auth()->user()->id.' ');
+      $userStatistics = DB::select('select * from statistics where user_id = '.auth()->user()->id.' and status = 0 ');
+
+      $userStatisticsl = DB::select('select * from statistics where user_id = '.auth()->user()->id.' and status = 1 ');
+        
         
       $info =random__bmi::where('id',auth()->user()->bmi)->get();
    
@@ -47,6 +50,7 @@ class Userlanding extends Component
          return view('livewire.userlanding',[
       'userBMI' => $userBMI[0]->bmi,
         'userStatistics'=> $userStatistics,
+        'userStatisticsl'=>$userStatisticsl,
         'info'=>$info,
         'bmi_Conclusion'=> $bmi_Conclusion,
         'recommendation'=>$recommendation,

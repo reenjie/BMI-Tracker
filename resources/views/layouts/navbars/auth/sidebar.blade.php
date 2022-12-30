@@ -93,17 +93,7 @@
                 </a>
             </li>
 
-            <li class="nav-item pb-2">
-                <a class="nav-link {{ Route::currentRouteName() == 'Meal-Plan' ? 'active' : '' }}"
-                    href="{{ route('Meal-Plan') }}">
-                    <div
-                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i style="font-size: 1rem;" class="fas fa-lg fa-clipboard-list ps-2 pe-2 text-center
-                        {{ in_array(request()->route()->getName(),['Recommendation']) ? 'text-white' : 'text-dark' }}"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Meal Plan</span>
-                </a>
-            </li>
+            <!-- MeAL PLAN ROUTE-->
 
 
     

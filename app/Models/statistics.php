@@ -11,8 +11,12 @@ class statistics extends Model
 
     protected $fillable = [
         'user_id',
+        'height',
+        'weight',
         'DBW',
         'TER',
         'PA',
+        'BMI',
+        'status'
     ];
 }

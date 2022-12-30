@@ -159,9 +159,13 @@ class CalculationCOntroller extends Controller
  
    statistics::create([
     'user_id' => auth()->user()->id,
+    'height'=>$height,
+    'weight'=>$weight,
     'DBW' =>$DBW ,
     'TER' => $TER,
     'PA' => $pa,
+    'BMI'=>$bmi,
+    'status'=>0
    ]);
   
    return redirect()->route('Information');
@@ -175,7 +179,9 @@ class CalculationCOntroller extends Controller
         User::where('id',$id)->update([
             'bmi'=> 0,
         ]);
-        statistics::where('user_id',$id)->delete();
+        statistics::where('user_id',$id)->update([
+            'status'=>1,
+        ]);
 
     return redirect()->route('Information');
     }
