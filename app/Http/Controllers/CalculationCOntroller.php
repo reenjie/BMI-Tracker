@@ -156,10 +156,11 @@ class CalculationCOntroller extends Controller
     
  
    }
- 
+   
+   $finalconversion = $DBW * 0.453592;
    statistics::create([
     'user_id' => auth()->user()->id,
-    'DBW' =>$DBW ,
+    'DBW' =>$finalconversion ,
     'TER' => $TER,
     'PA' => $pa,
    ]);
