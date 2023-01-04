@@ -54,6 +54,7 @@ class Userlanding extends Component
         'info'=>$info,
         'bmi_Conclusion'=> $bmi_Conclusion,
         'recommendation'=>$recommendation,
+        'rangeID'=>$rangeID
        ]); 
     }
 }

@@ -179,6 +179,9 @@ Route::controller(MealplanController::class)->group(function(){
      Route::post('saveplan','saveplan')->name('saveplan');
      Route::get('updatecontent','updatecontent')->name('updatecontent');
 
+     Route::get('manage','manage')->name('manage');
+     Route::get('mealcontent','mealcontent')->name('mealcontent');
+
        
     });
 

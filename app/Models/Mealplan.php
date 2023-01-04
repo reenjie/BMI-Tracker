@@ -13,5 +13,6 @@ class Mealplan extends Model
         'dayid',
         'schedule',
         'content',
+        'rangeid'
     ];
 }

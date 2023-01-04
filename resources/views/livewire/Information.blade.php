@@ -24,7 +24,9 @@
                     </h6>
                   
                     <h4  style="font-weight: bold;color:rgb(223, 162, 49)">
-                        {{$userStatistics[0]->DBW}} Kg
+                 {{round($userStatistics[0]->DBW)}} Kg
+
+                     
                     </h4>
                     </div>
 
@@ -58,7 +60,7 @@
                   <span style="font-size:14px;">  Carbohydrates:</span> 
 
                     @php
-                      $carb = $userStatistics[0]->TER * .60;
+                      $carb = floatval($userStatistics[0]->TER) * .60;
 
                       $carbohydrates = $carb / 4;
                       echo round($carbohydrates).' gms';
@@ -70,7 +72,7 @@
                     <span style="font-size:14px;">  Fats:</span> 
 
                     @php
-                      $fat = $userStatistics[0]->TER * .25;
+                      $fat = floatval($userStatistics[0]->TER) * .25;
 
                       $fats = $fat / 9;
                       echo round($fats).' gms';
@@ -81,7 +83,7 @@
                     <span style="font-size:14px;">  Protein:</span> 
 
                     @php
-                      $pro = $userStatistics[0]->TER * .15;
+                      $pro =floatval($userStatistics[0]->TER) * .15;
 
                       $protein = $pro / 9;
                       echo round($protein).' gms';
@@ -178,6 +180,9 @@
                             </span>
                             <span style="margin-left: 5px">
                           {{$bmi_Conclusion}} 
+                            
+                      
+                         
                             </span>
                         </div>
                     </h6>
@@ -334,8 +339,10 @@
 
                 <div class="card-body">
                                   <h5>
-                            Meal Plan
+                                     Meal Plan 
                           </h5>  
+                          <span style="font-size:11px">For BMI RESULT</span>
+                          <span class="badge bg-success mb-2">{{$bmi_Conclusion}}</span>
                           @php 
                     $week = DB::select('SELECT * FROM `weeks`');
 
@@ -362,7 +369,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Meal Plan</h5>
+        <h5 class="modal-title" id="exampleModalLabel"> Meal Plan</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -370,7 +377,7 @@
 
       @php
                         $dayid = $d->id;
-                        $mealplans = DB::select('SELECT * FROM `mealplans` where dayid = '.$dayid.' order by schedule asc ');
+                        $mealplans = DB::select('SELECT * FROM `mealplans` where dayid = '.$dayid.' and rangeid ='.$rangeID.' order by schedule asc ');
                         @endphp
                         <div class="row">
                           @if(count($mealplans)>=1)

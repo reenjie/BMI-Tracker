@@ -34,7 +34,12 @@ class CalculationCOntroller extends Controller
 
     public function ter(Request $request){
      $pa =  $request->input('kcal');
-     $randbmi = random__bmi::where('id',auth()->user()->bmi)->get();
+     
+
+    $randbmi = random__bmi::where('id',auth()->user()->bmi)->get();
+    
+
+    
      
      $height = $randbmi[0]->height;
      $weight = $randbmi[0]->weight;
@@ -132,8 +137,11 @@ class CalculationCOntroller extends Controller
     $conclusion = DB::select('SELECT * FROM `ranges` WHERE '.$bmi.' BETWEEN start and end');
     if(sizeof($conclusion) >=1 ){
         $bmi_Conclusion = $conclusion[0]->conclusion; 
+        $bmi_id =  $conclusion[0]->id; 
     }else {
         $bmi_Conclusion = 0;
+        $bmi_id =  0; 
+
     }
    
     $TER = 'UnIdentified';
@@ -160,6 +168,8 @@ class CalculationCOntroller extends Controller
    $finalconversion = $DBW * 0.453592;
    statistics::create([
     'user_id' => auth()->user()->id,
+    'height' => $height,
+    'weight' =>$weight,
     'DBW' =>$finalconversion,
     'TER' => $TER,
     'PA' => $pa,
