@@ -50,5 +50,7 @@ class DatabaseSeeder extends Seeder
           'end' =>70,
           'conclusion'=>'Obese',
           ]);
+
+          $this->call([mealplan::class]);
     }
 }

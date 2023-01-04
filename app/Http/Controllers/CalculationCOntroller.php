@@ -160,9 +160,11 @@ class CalculationCOntroller extends Controller
    $finalconversion = $DBW * 0.453592;
    statistics::create([
     'user_id' => auth()->user()->id,
-    'DBW' =>$finalconversion ,
+    'DBW' =>$finalconversion,
     'TER' => $TER,
     'PA' => $pa,
+    'BMI'=>$bmi,
+    'status'=>0
    ]);
   
    return redirect()->route('Information');
@@ -176,7 +178,9 @@ class CalculationCOntroller extends Controller
         User::where('id',$id)->update([
             'bmi'=> 0,
         ]);
-        statistics::where('user_id',$id)->delete();
+        statistics::where('user_id',$id)->update([
+            'status'=>1,
+        ]);
 
     return redirect()->route('Information');
     }

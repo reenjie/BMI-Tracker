@@ -18,6 +18,9 @@ use App\Http\Livewire\Recommendation_model;
 use App\Http\Livewire\StaticSignIn;
 use App\Http\Livewire\StaticSignUp;
 use App\Http\Livewire\Rtl;
+use App\Http\Livewire\Mealplan;
+
+
 
 use App\Http\Controllers\CalculationCOntroller;
 use App\Http\Controllers\RandomBmiController;
@@ -25,6 +28,9 @@ use App\Http\Controllers\RangesController;
 use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\AgeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MealplanController;
+
+
 
 
 
@@ -49,7 +55,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function() {
-    return redirect('/login');
+    return redirect('/BMI');
 });
 
 Route::get('/sign-up', SignUp::class)->name('sign-up');
@@ -85,6 +91,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/Information',Userlanding::class)->name('Information');
 
     
+    Route::get('/Meal-Plan',Mealplan::class)->name('Meal-Plan');
 
    
 });
@@ -162,6 +169,17 @@ Route::controller(UserController::class)->group(function(){
         Route::post('store','store')->name('store');
         
         Route::post('changepass','changepass')->name('changepass');
+    });
+
+});
+
+Route::controller(MealplanController::class)->group(function(){
+    Route::prefix('mealplan')->name('meal.')->group(function(){
+      
+     Route::post('saveplan','saveplan')->name('saveplan');
+     Route::get('updatecontent','updatecontent')->name('updatecontent');
+
+       
     });
 
 });
