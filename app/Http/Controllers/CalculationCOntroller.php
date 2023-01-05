@@ -43,18 +43,21 @@ class CalculationCOntroller extends Controller
      
      $height = $randbmi[0]->height;
      $weight = $randbmi[0]->weight;
-     $bmi = $randbmi[0]->bmi;
+     //$bmi = $randbmi[0]->bmi;
+     $bmi = 18.52;
+   
      
         /* Get DBW  Desired Body Weight */
 
      $feet = $height * 0.0328084;  
+
+    
  //   $feet = 5.7;
      $dl = explode('.', $feet);
      $first = $dl[0];
      $foot = '';
     $decimals = substr($dl[1],0,2);
       
-  
  
    if(auth()->user()->gender == 'Male'){
       /* Male Calculation */
@@ -97,9 +100,9 @@ class CalculationCOntroller extends Controller
       
    }else {
       /* Female Calculation */
-
+      
       if($first > 5){
-     
+      
         $lapse = $first - 5;
         $templbs = $lapse * 12;
         $flbs = $templbs + $decimals;
@@ -112,8 +115,8 @@ class CalculationCOntroller extends Controller
     
     
         }else if($first < 5){
-    
-    
+         
+        
          $tempD = 12 - $decimals;
          $flbs =  $tempD * 4;
         
@@ -126,15 +129,18 @@ class CalculationCOntroller extends Controller
     
     
        }else if ($first == 5){
+        
+      
         $tempDBW = 106 + $decimals * 4; 
         $rdbw = $tempDBW * 0.45359237;
 
         $DBW = round($rdbw,2);
      
-            }
+      }
    }
+    $roundedBMI = round($bmi);
 
-    $conclusion = DB::select('SELECT * FROM `ranges` WHERE '.$bmi.' BETWEEN start and end');
+    $conclusion = DB::select('SELECT * FROM `ranges` WHERE '.$roundedBMI.' BETWEEN start and end');
     if(sizeof($conclusion) >=1 ){
         $bmi_Conclusion = $conclusion[0]->conclusion; 
         $bmi_id =  $conclusion[0]->id; 
@@ -164,8 +170,8 @@ class CalculationCOntroller extends Controller
     
  
    }
-   
-   $finalconversion = $DBW * 0.453592;
+
+  $finalconversion = $DBW * 0.453592;
    statistics::create([
     'user_id' => auth()->user()->id,
     'height' => $height,
@@ -175,10 +181,11 @@ class CalculationCOntroller extends Controller
     'PA' => $pa,
     'BMI'=>$bmi,
     'status'=>0
+
    ]);
   
    return redirect()->route('Information');
-        
+       
 
     }
 
