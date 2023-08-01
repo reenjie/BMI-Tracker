@@ -5,7 +5,8 @@
         <div class="col-12">
             <div class="card mb-4 mx-4">
                 <div class="card-header pb-0">
-                    
+                  
+                
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     @if(session()->has('success'))
@@ -18,14 +19,37 @@
                     </div>
                   @endif
                     <div class="container">
-                        <button data-bs-toggle="modal" data-bs-target="#add"  class="btn bg-gradient-primary btn-sm mb-0" >Add Administrator</button>
+                     
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                            <button data-bs-toggle="modal" data-bs-target="#add"  class="btn bg-gradient-primary btn-sm mb-0" >Add Administrator</button>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="">
+                                <form action=""  method ="get">
+                               
+                                <input type="text" class="form-control fs-13" placeholder="Search for Name or Email" name="searchkey" required>
+                            
+                                <button class="btn btn-warning btn-sm " style="margin-top:8px;float:right" type="submit">Search <i class="fas fa-search"></i> </button>
+                            @if(request('searchkey'))
+                            <button class="btn btn-secondary btn-sm " onClick ="window.location.href='/user-management' " style="margin-top:8px;" type="button">Clear Filtering <i class="fas fa-times"></i> </button>
+                            @endif
+                            
+                            </form>   
+                            </div>    
+                          
+
+                            </div>
+                        
+                        </div>
                     </div>
 
 
                     @include('livewire/adduser')
          
                     <div class="table-responsive p-0">
-                        <table class="table align-items-center mb-0">
+                        <table class="table align-items-center mb-0" id="myTable">
                             <thead>
                                 <tr>
                                  
@@ -50,7 +74,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($users as $item)
+
+                        @php
+                        $data = $users;
+
+                    if (request('searchkey')) {
+                        $searchKey = request('searchkey');
+                        $data = $data->filter(function ($user) use ($searchKey) {
+                            return str_contains($user->name, $searchKey) || str_contains($user->email, $searchKey);
+                        });
+                    }
+
+                       @endphp
+                       @if(count($data)>=1)
+                                @foreach ($data as $item)
                                 @if($item->id != auth()->user()->id)
                                 <tr>
                                  
@@ -198,13 +235,21 @@
                                         <span 
                                         style="margin-left: 5px"
                                         onclick="Delete_rec({{$item->id}})">
-                                            <i class="cursor-pointer fas fa-trash text-secondary"></i>
+                                            <i class="cursor-pointer fas fa-times text-danger"></i>
                                         </span>
                                     </td>
                                 </tr>
                                 @endif 
                                 @endforeach
-                           
+                                @else 
+                                <tr>
+                                    <td colSpan="6" style="text-align:center;font-size:14px">No Data Found!
+                                    <br>
+                                    Search key : <span style="color:maroon">{{request('searchkey')}}</span>
+                                </td>
+                                </tr>
+                            @endif
+
                              
                             </tbody>
                         </table>
@@ -216,6 +261,9 @@
 
 </div>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
 <script>
 
 function Delete_rec(id){

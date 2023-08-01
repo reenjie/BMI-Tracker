@@ -58,6 +58,12 @@ Route::get('/', function() {
     return redirect('/BMI');
 });
 
+Route::get('/print-meal-plan', function (Request $request) {
+   $rid = $request->rangeID;
+    return view('print-meal-plan',compact('rid'));
+})->name('printmealplan');
+
+
 Route::get('/sign-up', SignUp::class)->name('sign-up');
 Route::get('/login', Login::class)->name('login');
 

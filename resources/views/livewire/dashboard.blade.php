@@ -152,6 +152,11 @@
                       >
                           Verify <i class="fas fa-check-circle"></i>
                       </button>
+                      <span 
+                                        style="margin-left: 5px"
+                                        onclick="Delete_rec({{$item->id}})">
+                                            <i class="cursor-pointer fas fa-times text-danger"></i>
+                                        </span>
                     </div>
                   </div>
                 @endforeach
@@ -349,5 +354,20 @@
     }
   });
   }
+
+  function Delete_rec(id){
+    swal({
+  title: "Are you sure?",
+  text: "All Records of this User Will be Deleted. Press Ok to Proceed",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    window.location.href="{{route('user.destroy')}}?id="+id;
+  }
+});
+}
   
   </script>

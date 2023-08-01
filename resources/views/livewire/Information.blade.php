@@ -339,7 +339,7 @@
 
                 <div class="card-body">
                                   <h5>
-                                     Meal Plan 
+                                     Meal Plan   <a  href="{{ route('printmealplan',['rangeID'=>$rangeID]) }}" target="_blank" class="btn btn-secondary btn-sm px-5" style="float:right">Print Meal-Plan <i style="font-size:15px" class="fas fa-print"></i></a>
                           </h5>  
                           <span style="font-size:11px">For BMI RESULT</span>
                           <span class="badge bg-success mb-2">{{$bmi_Conclusion}}</span>
