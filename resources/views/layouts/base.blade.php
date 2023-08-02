@@ -58,6 +58,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="assets/js/soft-ui-dashboard.js"></script>
+     <script src="livewire/livewire.js?id=de3fca26689cb5a39af4" data-turbo-eval="false" data-turbolinks-eval="false" ></script>
     @livewireScripts
 </body>
 
